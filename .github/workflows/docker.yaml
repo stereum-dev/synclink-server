@@ -1,0 +1,29 @@
+name: docker
+
+on: push
+      
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2      
+
+      - name: Build only
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+        if: startsWith(github.ref, 'refs/tags/v') == false
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Build only
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: stereum-dev/synclink-server:latest,stereum-dev/synclink-server:${{github.ref_name}}
+        if: startsWith(github.ref, 'refs/tags/v')
