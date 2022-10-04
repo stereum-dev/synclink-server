@@ -1,1 +1,2 @@
 port: 9000
+eth_api_address: http://localhost:5051
