@@ -1,13 +1,16 @@
 import requests
 from urllib.parse import urljoin
 
+from validators.content_type import ContentTypeSSZ
+
 
 class API:
     def __init__(self, apiUrl):
         self.__apiUrl = apiUrl
 
-    def request(self, url_path):
-        response = requests.get(urljoin(self.__apiUrl, url_path))
+    def request(self, url_path, headers=None):
+        response = requests.get(
+            urljoin(self.__apiUrl, url_path), headers=headers)
 
         return response.json()
 
@@ -53,7 +56,12 @@ class NodeAPI(API):
 
 class DebugAPI(API):
     def bacon_state(self, state_id):
-        return self.request(f"/eth/v2/debug/beacon/states/${state_id}")
+        r = self.request(
+            f"/eth/v2/debug/beacon/states/{state_id}", headers={"accept": ContentTypeSSZ})
+
+        print(r)
+
+        return r
 
 
 class ETH2API:
