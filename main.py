@@ -15,12 +15,6 @@ app = FastAPI()
 app.include_router(eth_router, prefix='/eth')
 
 
-@app.get('/main')
-async def get_main():
-    r = await client.get('http://httpbin.org/uuid')
-    return r.json()
-
-
 if __name__ == "__main__":
     config = read('config.yaml')
 
