@@ -2,6 +2,16 @@
 
 A very basic implementation of the [SyncLink Server](https://github.com/stereum-dev/synclink-spec/wiki/SyncLink-Server).
 
+## Supported clients
+
+| Client     | Support |
+| ---------- | ------- |
+| Teku       | ✅      |
+| Nimbus     | ✅      |
+| Lodestar   | ✅      |
+| Lighthouse | ✅      |
+| Prysm      | ✅      |
+
 ## Install Python 3
 
 Please refer to the [official Python docs](https://www.python.org/doc/) to install Python >= 3.6 on your OS.
@@ -39,11 +49,11 @@ pip install -r requirements.txt
 1. Copy `config.yaml.example` to `config.yaml`
 2. Define settings in `config.yaml` as desired
 
-Name | Description| Default | Required
----------|----------|---------|---------
- addr | The IP address or domain for the SyncLink server  | 0.0.0.0 | No
- port | The port for the SyncLink server | 8000 | No
- eth_api_address | The url to your beacon node API | http://localhost:5051 | Yes
+| Name            | Description                                      | Default               | Required |
+| --------------- | ------------------------------------------------ | --------------------- | -------- |
+| addr            | The IP address or domain for the SyncLink server | 0.0.0.0               | No       |
+| port            | The port for the SyncLink server                 | 8000                  | No       |
+| eth_api_address | The url to your beacon node API                  | http://localhost:5051 | Yes      |
 
 ## Run the App
 
