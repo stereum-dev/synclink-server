@@ -10,7 +10,11 @@ from routes.eth import eth_router
 client = httpx.AsyncClient()
 
 
-app = FastAPI()
+app = FastAPI(
+    title="SyncLink Server API",
+    description="Specification of the SyncLink Server API",
+    version="0.1.0",
+)
 
 app.include_router(eth_router, prefix='/eth')
 
