@@ -1,4 +1,5 @@
-import requests
+from http import client
+import httpx
 from urllib.parse import urljoin
 
 from validators.content_type import ContentTypeSSZ
@@ -6,62 +7,59 @@ from validators.content_type import ContentTypeSSZ
 
 class API:
     def __init__(self, apiUrl):
-        self.__apiUrl = apiUrl
+        self.apiUrl = apiUrl
+        self.__client = httpx.AsyncClient(base_url=apiUrl)
 
-    def request(self, url_path, headers=None):
-        response = requests.get(
-            urljoin(self.__apiUrl, url_path), headers=headers)
+    async def request(self, url_path):
+        response = await self.__client.get(url_path)
 
         return response.json()
 
 
 class BeaconAPI(API):
-    def genesis(self):
-        return self.request('/eth/v1/beacon/genesis')
+    async def genesis(self):
+        return await self.request('/eth/v1/beacon/genesis')
 
-    def block_root(self, block_id):
-        return self.request(f"/eth/v1/beacon/blocks/{block_id}/root")
+    async def block_root(self, block_id):
+        return await self.request(f"/eth/v1/beacon/blocks/{block_id}/root")
 
-    def state_finality_checkpoints(self, state_id):
-        return self.request(f"/eth/v1/beacon/states/{state_id}/finality_checkpoints")
+    async def state_finality_checkpoints(self, state_id):
+        return await self.request(f"/eth/v1/beacon/states/{state_id}/finality_checkpoints")
 
-    def block(self, block_id):
-        return self.request(f"/eth/v2/beacon/blocks/{block_id}")
+    async def block(self, block_id):
+        return await self.request(f"/eth/v2/beacon/blocks/{block_id}")
 
 
 class ConfigAPI(API):
-    def spec(self):
-        return self.request('/eth/v1/config/spec')
+    async def spec(self):
+        return await self.request('/eth/v1/config/spec')
 
-    def deposit_contract(self):
-        return self.request('/eth/v1/config/deposit_contract')
+    async def deposit_contract(self):
+        return await self.request('/eth/v1/config/deposit_contract')
 
-    def fork_schedule(self):
-        return self.request('/eth/v1/config/fork_schedule')
+    async def fork_schedule(self):
+        return await self.request('/eth/v1/config/fork_schedule')
 
 
 class NodeAPI(API):
-    def syncing(self):
-        return self.request('/eth/v1/node/syncing')
+    async def syncing(self):
+        return await self.request('/eth/v1/node/syncing')
 
-    def version(self):
-        return self.request('/eth/v1/node/version')
+    async def version(self):
+        return await self.request('/eth/v1/node/version')
 
-    def peers(self):
-        return self.request('/eth/v1/node/peers')
+    async def peers(self):
+        return await self.request('/eth/v1/node/peers')
 
-    def peer_count(self):
-        return self.request('/eth/v1/node/peer_count')
+    async def peer_count(self):
+        return await self.request('/eth/v1/node/peer_count')
 
 
 class DebugAPI(API):
     def bacon_state(self, state_id):
-        r = self.request(
-            f"/eth/v2/debug/beacon/states/{state_id}", headers={"accept": ContentTypeSSZ})
-
-        print(r)
-
-        return r
+        with httpx.stream("GET", urljoin(self.apiUrl, f"/eth/v2/debug/beacon/states/{state_id}")) as r:
+            for chunk in r.iter_bytes():
+                yield chunk
 
 
 class ETH2API:
