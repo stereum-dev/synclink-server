@@ -10,6 +10,7 @@ class AppConfig(BaseModel):
 
 def read(file_name):
     defaultConfig: AppConfig = {
+        "addr": "0.0.0.0",
         "port": 8000,
         "eth_api_address": "http://localhost:5051",
     }
