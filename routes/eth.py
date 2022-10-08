@@ -47,7 +47,7 @@ async def handle_eth_v1_beacon_blocks_root(block_id, content_type: str = Header(
 async def handle_eth_v1_beacon_blocks_root(state_id, content_type: str = Header(default=ContentTypeJSON)):
     validate_content_type(content_type, [ContentTypeJSON])
 
-    r = api.beacon.state_finality_checkpoints(state_id)
+    r = await api.beacon.state_finality_checkpoints(state_id)
 
     return JSONResponse(r)
 
