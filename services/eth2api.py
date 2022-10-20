@@ -57,7 +57,7 @@ class NodeAPI(API):
 
 class DebugAPI(API):
     def bacon_state(self, state_id):
-        with httpx.stream("GET", urljoin(self.apiUrl, f"/eth/v2/debug/beacon/states/{state_id}")) as r:
+        with httpx.stream("GET", urljoin(self.apiUrl, f"/eth/v2/debug/beacon/states/{state_id}"), headers={'Accept': 'application/octet-stream'}) as r:
             for chunk in r.iter_bytes():
                 yield chunk
 

@@ -128,4 +128,4 @@ async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=
 async def handle_eth_v2_debug_beacon_state(state_id, content_type: str = Header(default=ContentTypeSSZ)):
     validate_content_type(content_type, [ContentTypeSSZ])
 
-    return StreamingResponse(api.debug.bacon_state(state_id), media_type='application/json')
+    return StreamingResponse(api.debug.bacon_state(state_id=state_id), headers={"Content-Type": "application/json"})
