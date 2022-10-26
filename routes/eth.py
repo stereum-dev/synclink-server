@@ -1,5 +1,5 @@
 from config.config import read
-from fastapi import APIRouter, Header
+from fastapi import APIRouter, Header, Response
 from fastapi.responses import JSONResponse, StreamingResponse
 from models.get_block_root_response import GetBlockRootResponse
 from models.get_block_v2_response import GetBlockV2Response
@@ -88,8 +88,16 @@ async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=
     return JSONResponse(r)
 
 
+@eth_router.get("/v1/node/health", tags=["Node"])
+async def handle_eth_v1_node_health():
+
+    r = await api.node.health()
+
+    return Response(status_code=r.status_code)
+
+
 @eth_router.get("/v1/node/syncing", tags=["Node"], response_model=GetSyncingStatusResponse)
-async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=ContentTypeJSON)):
+async def handle_eth_v1_node_syncing(content_type: str = Header(default=ContentTypeJSON)):
     validate_content_type(content_type, [ContentTypeJSON])
 
     r = await api.node.syncing()
@@ -98,7 +106,7 @@ async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=
 
 
 @eth_router.get("/v1/node/version", tags=["Node"], response_model=GetVersionResponse)
-async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=ContentTypeJSON)):
+async def handle_eth_v1_node_version(content_type: str = Header(default=ContentTypeJSON)):
     validate_content_type(content_type, [ContentTypeJSON])
 
     r = await api.node.version()
@@ -107,7 +115,7 @@ async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=
 
 
 @eth_router.get("/v1/node/peers", tags=["Node"], response_model=GetPeersResponse)
-async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=ContentTypeJSON)):
+async def handle_eth_v1_node_peers(content_type: str = Header(default=ContentTypeJSON)):
     validate_content_type(content_type, [ContentTypeJSON])
 
     r = await api.node.peers()
@@ -116,7 +124,7 @@ async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=
 
 
 @eth_router.get("/v1/node/peer_count", tags=["Node"], response_model=GetPeerCountResponse)
-async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=ContentTypeJSON)):
+async def handle_eth_v1_node_peer_count(content_type: str = Header(default=ContentTypeJSON)):
     validate_content_type(content_type, [ContentTypeJSON])
 
     r = await api.node.peer_count()

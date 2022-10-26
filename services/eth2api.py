@@ -8,10 +8,10 @@ from validators.content_type import ContentTypeSSZ
 class API:
     def __init__(self, apiUrl):
         self.apiUrl = apiUrl
-        self.__client = httpx.AsyncClient(base_url=apiUrl)
+        self.client = httpx.AsyncClient(base_url=apiUrl)
 
     async def request(self, url_path):
-        response = await self.__client.get(url_path)
+        response = await self.client.get(url_path)
 
         return response.json()
 
@@ -42,6 +42,9 @@ class ConfigAPI(API):
 
 
 class NodeAPI(API):
+    async def health(self):
+        return await self.client.get('/eth/v1/node/health')
+
     async def syncing(self):
         return await self.request('/eth/v1/node/syncing')
 
