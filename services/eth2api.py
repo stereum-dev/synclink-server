@@ -1,6 +1,7 @@
 from apiclient_pydantic import serialize_all_methods
 import httpx
 from urllib.parse import urljoin
+from models.get_fork_schedule_response import GetForkScheduleResponse
 
 from models.get_spec_response import GetSpecResponse
 from models.get_syncing_status_response import GetSyncingStatusResponse
@@ -39,7 +40,7 @@ class ConfigAPI(API):
     async def deposit_contract(self):
         return await self.request('/eth/v1/config/deposit_contract')
 
-    async def fork_schedule(self):
+    async def fork_schedule(self) -> GetForkScheduleResponse:
         return await self.request('/eth/v1/config/fork_schedule')
 
 
