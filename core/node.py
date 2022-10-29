@@ -1,16 +1,14 @@
-from os import sep
 from xmlrpc.client import Boolean
 
-from models.get_spec_response import GetSpecResponseData
 from services.eth2api import ETH2API
 
-from core.spec import DepositContract, Spec
+from core.config import Config, DepositContract
 
 
 class Node():
     def __init__(self, url) -> None:
         self.api = ETH2API(url)
-        self.spec = GetSpecResponseData()
+        self.config = Config()
 
     async def is_working(self) -> bool:
         try:
@@ -36,10 +34,10 @@ class Node():
         spec = await self.api.config.spec()
         fork_epochs = await self.api.config.fork_schedule()
 
-        self.spec = Spec(**spec.data.__dict__,
-                         FORK_EPOCHS=fork_epochs.data,
-                         DEPOSIT_CONTRACT=DepositContract(
-                             address=spec.data.DEPOSIT_CONTRACT_ADDRESS,
-                             chain_id=spec.data.DEPOSIT_CHAIN_ID))
+        self.config = Config(spec=spec.data,
+                             fork_epochs=fork_epochs.data,
+                             deposit_contract=DepositContract(
+                                 address=spec.data.DEPOSIT_CONTRACT_ADDRESS,
+                                 chain_id=spec.data.DEPOSIT_CHAIN_ID))
 
-        return self.spec
+        return self.config

@@ -7,9 +7,10 @@ from pydantic import BaseModel
 
 class DepositContract(BaseModel):
     address: Optional[str]
-    chain_id: Optional[int]
+    chain_id: Optional[str]
 
 
-class Spec(GetSpecResponseData):
-    FORK_EPOCHS: Optional[List[GetStateForkResponseData]]
-    DEPOSIT_CONTRACT: Optional[DepositContract]
+class Config(BaseModel):
+    spec: Optional[GetSpecResponseData]
+    fork_epochs: Optional[List[GetStateForkResponseData]]
+    deposit_contract: Optional[DepositContract]

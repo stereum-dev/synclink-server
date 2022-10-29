@@ -4,6 +4,7 @@ import uvicorn
 
 from config.config import read
 from routes.eth import eth_router
+from routes.synclink import synclink_router
 import core.synclink
 
 app = FastAPI(
@@ -12,6 +13,7 @@ app = FastAPI(
     version="0.1.0",
 )
 
+app.include_router(synclink_router, prefix='/synclink')
 app.include_router(eth_router, prefix='/eth')
 
 
