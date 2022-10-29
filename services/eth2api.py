@@ -1,8 +1,9 @@
-from http import client
+from apiclient_pydantic import serialize_all_methods
 import httpx
 from urllib.parse import urljoin
 
-from validators.content_type import ContentTypeSSZ
+from models.get_spec_response import GetSpecResponse
+from models.get_syncing_status_response import GetSyncingStatusResponse
 
 
 class API:
@@ -30,8 +31,9 @@ class BeaconAPI(API):
         return await self.request(f"/eth/v2/beacon/blocks/{block_id}")
 
 
+@serialize_all_methods()
 class ConfigAPI(API):
-    async def spec(self):
+    async def spec(self) -> GetSpecResponse:
         return await self.request('/eth/v1/config/spec')
 
     async def deposit_contract(self):
@@ -41,11 +43,12 @@ class ConfigAPI(API):
         return await self.request('/eth/v1/config/fork_schedule')
 
 
+@serialize_all_methods()
 class NodeAPI(API):
     async def health(self):
         return await self.client.get('/eth/v1/node/health')
 
-    async def syncing(self):
+    async def syncing(self) -> GetSyncingStatusResponse:
         return await self.request('/eth/v1/node/syncing')
 
     async def version(self):

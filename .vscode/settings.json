@@ -1,0 +1,8 @@
+{
+    "cSpell.ignoreWords": [
+        "Synclink",
+        "fastapi",
+        "loguru",
+        "uvicorn"
+    ]
+}

@@ -1,11 +1,12 @@
-import string
 import yaml
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class AppConfig(BaseModel):
-    port: int
-    eth_api_address: str
+    addr: str = Field(alias="addr", default="0.0.0.0")
+    port: int = Field(alias="port", default=8000)
+    eth_api_address: str = Field(alias="eth_api_address",
+                                 default='http://localhost:5051')
 
 
 def read(file_name):
@@ -18,6 +19,6 @@ def read(file_name):
     with open(file_name, "r") as f:
         yamlConfig: AppConfig = yaml.load(f, Loader=yaml.FullLoader) or {}
 
-    config: AppConfig = {**defaultConfig, **yamlConfig}
+    config = AppConfig(**{**defaultConfig, **yamlConfig})
 
     return config

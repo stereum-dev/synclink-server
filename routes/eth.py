@@ -19,7 +19,7 @@ from validators.content_type import (ContentTypeJSON, ContentTypeSSZ,
                                      validate_content_type)
 
 config = read(file_name='config.yaml')
-api = ETH2API(config['eth_api_address'])
+api = ETH2API(config.eth_api_address)
 
 
 eth_router = APIRouter()
@@ -67,7 +67,7 @@ async def handle_eth_v1_config_spec(content_type: str = Header(default=ContentTy
 
     r = await api.config.spec()
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/config/deposit_contract", tags=["Config"], response_model=GetDepositContractResponse)
