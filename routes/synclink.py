@@ -22,4 +22,4 @@ async def handle_synclink_v1_ready_status():
     if (is_ready):
         return Response(status_code=200)
 
-    return Response(500)
+    return Response(status_code=500)
