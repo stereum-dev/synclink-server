@@ -19,64 +19,64 @@ class GetSpecResponseData(BaseModel):
     CONFIG_NAME: Optional[str] = Field(
         alias="CONFIG_NAME", default=None)
 
-    DEPOSIT_CHAIN_ID: Optional[int] = Field(
+    DEPOSIT_CHAIN_ID: Optional[str] = Field(
         alias="DEPOSIT_CHAIN_ID", default=None)
 
-    SAFE_SLOTS_TO_UPDATE_JUSTIFIED: Optional[int] = Field(
+    SAFE_SLOTS_TO_UPDATE_JUSTIFIED: Optional[str] = Field(
         alias="SAFE_SLOTS_TO_UPDATE_JUSTIFIED", default=None)
 
-    SLOTS_PER_EPOCH: Optional[int] = Field(
+    SLOTS_PER_EPOCH: Optional[str] = Field(
         alias="SLOTS_PER_EPOCH", default=None)
 
-    EPOCHS_PER_SYNC_COMMITTEE_PERIOD: Optional[int] = Field(
+    EPOCHS_PER_SYNC_COMMITTEE_PERIOD: Optional[str] = Field(
         alias="EPOCHS_PER_SYNC_COMMITTEE_PERIOD", default=None)
 
-    MIN_SYNC_COMMITTEE_PARTICIPANTS: Optional[int] = Field(
+    MIN_SYNC_COMMITTEE_PARTICIPANTS: Optional[str] = Field(
         alias="MIN_SYNC_COMMITTEE_PARTICIPANTS", default=None)
 
-    TARGET_COMMITTEE_SIZE: Optional[int] = Field(
+    TARGET_COMMITTEE_SIZE: Optional[str] = Field(
         alias="TARGET_COMMITTEE_SIZE", default=None)
 
-    SYNC_COMMITTEE_SIZE: Optional[int] = Field(
+    SYNC_COMMITTEE_SIZE: Optional[str] = Field(
         alias="SYNC_COMMITTEE_SIZE", default=None)
 
-    TERMINAL_BLOCK_HASH_ACTIVATION_EPOCH: Optional[int] = Field(
+    TERMINAL_BLOCK_HASH_ACTIVATION_EPOCH: Optional[str] = Field(
         alias="TERMINAL_BLOCK_HASH_ACTIVATION_EPOCH", default=None)
 
-    MAX_VALIDATORS_PER_COMMITTEE: Optional[int] = Field(
+    MAX_VALIDATORS_PER_COMMITTEE: Optional[str] = Field(
         alias="MAX_VALIDATORS_PER_COMMITTEE", default=None)
 
-    BASE_REWARD_FACTOR: Optional[int] = Field(
+    BASE_REWARD_FACTOR: Optional[str] = Field(
         alias="BASE_REWARD_FACTOR", default=None)
 
-    EFFECTIVE_BALANCE_INCREMENT: Optional[int] = Field(
+    EFFECTIVE_BALANCE_INCREMENT: Optional[str] = Field(
         alias="EFFECTIVE_BALANCE_INCREMENT", default=None)
 
-    MAX_EFFECTIVE_BALANCE: Optional[int] = Field(
+    MAX_EFFECTIVE_BALANCE: Optional[str] = Field(
         alias="MAX_EFFECTIVE_BALANCE", default=None)
 
-    MIN_DEPOSIT_AMOUNT: Optional[int] = Field(
+    MIN_DEPOSIT_AMOUNT: Optional[str] = Field(
         alias="MIN_DEPOSIT_AMOUNT", default=None)
 
-    MAX_ATTESTATIONS: Optional[int] = Field(
+    MAX_ATTESTATIONS: Optional[str] = Field(
         alias="MAX_ATTESTATIONS", default=None)
 
-    SECONDS_PER_ETH1_BLOCK: Optional[int] = Field(
+    SECONDS_PER_ETH1_BLOCK: Optional[str] = Field(
         alias="SECONDS_PER_ETH1_BLOCK", default=None)
 
-    GENESIS_DELAY: Optional[int] = Field(
+    GENESIS_DELAY: Optional[str] = Field(
         alias="GENESIS_DELAY", default=None)
 
-    SECONDS_PER_SLOT: Optional[int] = Field(
+    SECONDS_PER_SLOT: Optional[str] = Field(
         alias="SECONDS_PER_SLOT", default=None)
 
-    MAX_DEPOSITS: Optional[int] = Field(
+    MAX_DEPOSITS: Optional[str] = Field(
         alias="MAX_DEPOSITS", default=None)
 
-    MIN_GENESIS_ACTIVE_VALIDATOR_COUNT: Optional[int] = Field(
+    MIN_GENESIS_ACTIVE_VALIDATOR_COUNT: Optional[str] = Field(
         alias="MIN_GENESIS_ACTIVE_VALIDATOR_COUNT", default=None)
 
-    ETH1_FOLLOW_DISTANCE: Optional[int] = Field(
+    ETH1_FOLLOW_DISTANCE: Optional[str] = Field(
         alias="ETH1_FOLLOW_DISTANCE", default=None)
 
 
