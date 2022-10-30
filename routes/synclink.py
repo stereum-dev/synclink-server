@@ -1,7 +1,6 @@
 import core.synclink
 from core.config import Config
 from fastapi import APIRouter, Header, Response
-from models.get_synclink_ready_response import GetSynclinkReadyResponse
 from validators.content_type import ContentTypeJSON, validate_content_type
 
 synclink_router = APIRouter()
