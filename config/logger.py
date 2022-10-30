@@ -1,15 +1,11 @@
 import logging
-import os
 import sys
 
 from loguru import logger
 
-LOG_LEVEL = logging.getLevelName(os.environ.get("LOG_LEVEL", "DEBUG"))
-JSON_LOGS = True if os.environ.get("JSON_LOGS", "0") == "1" else False
-
 
 class InterceptHandler(logging.Handler):
-    def emit(self, record):
+    def emit(self, record: logging.LogRecord):
         try:
             level = logger.level(record.levelname).name
         except ValueError:
@@ -24,12 +20,36 @@ class InterceptHandler(logging.Handler):
             level, record.getMessage())
 
 
-def setup_logging():
+def setup_logging(log_level: int, json_logs: bool):
     logging.root.handlers = [InterceptHandler()]
-    logging.root.setLevel(LOG_LEVEL)
+    logging.root.setLevel(log_level)
 
     for name in logging.root.manager.loggerDict.keys():
         logging.getLogger(name).handlers = []
         logging.getLogger(name).propagate = True
 
-    logger.configure(handlers=[{"sink": sys.stdout, "serialize": JSON_LOGS}])
+    logger.configure(handlers=[{"sink": sys.stdout, "serialize": json_logs}])
+
+
+LOG_LEVEL = "DEBUG"
+
+UVICORN_LOGGING_CONFIG = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "()": "uvicorn.logging.DefaultFormatter",
+            "fmt": "%(levelprefix)s %(message)s",
+            "use_colors": None,
+        },
+        "access": {
+            "()": "uvicorn.logging.AccessFormatter",
+            "fmt": '%(levelprefix)s %(client_addr)s - "%(request_line)s" %(status_code)s',
+        },
+    },
+    "loggers": {
+        "uvicorn": {"level": "INFO"},
+        "uvicorn.error": {"level": "INFO"},
+        "uvicorn.access": {"level": "INFO", "propagate": False},
+    },
+}
