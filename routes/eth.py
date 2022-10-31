@@ -40,7 +40,7 @@ async def handle_eth_v1_beacon_blocks_root(block_id, content_type: str = Header(
 
     r = await api.beacon.block_root(block_id)
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/beacon/states/{state_id}/finality_checkpoints", tags=["Beacon"], response_model=GetStateFinalityCheckpointsResponse)
@@ -49,7 +49,7 @@ async def handle_eth_v1_beacon_blocks_root(state_id, content_type: str = Header(
 
     r = await api.beacon.state_finality_checkpoints(state_id)
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v2/beacon/blocks/{block_id}", tags=["Beacon"], response_model=GetBlockV2Response)
@@ -58,7 +58,7 @@ async def handle_eth_v2_beacon_block(block_id, content_type: str = Header(defaul
 
     r = await api.beacon.block(block_id)
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/config/spec", tags=["Config"], response_model=GetSpecResponse)
@@ -76,7 +76,7 @@ async def handle_eth_v1_config_deposit_contract(content_type: str = Header(defau
 
     r = await api.config.deposit_contract()
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/config/fork_schedule", tags=["Config"], response_model=GetForkScheduleResponse)
@@ -85,7 +85,7 @@ async def handle_eth_v1_config_fork_schedule(content_type: str = Header(default=
 
     r = await api.config.fork_schedule()
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/node/health", tags=["Node"])
@@ -102,7 +102,7 @@ async def handle_eth_v1_node_syncing(content_type: str = Header(default=ContentT
 
     r = await api.node.syncing()
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/node/version", tags=["Node"], response_model=GetVersionResponse)
@@ -111,7 +111,7 @@ async def handle_eth_v1_node_version(content_type: str = Header(default=ContentT
 
     r = await api.node.version()
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/node/peers", tags=["Node"], response_model=GetPeersResponse)
@@ -120,7 +120,7 @@ async def handle_eth_v1_node_peers(content_type: str = Header(default=ContentTyp
 
     r = await api.node.peers()
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v1/node/peer_count", tags=["Node"], response_model=GetPeerCountResponse)
@@ -129,7 +129,7 @@ async def handle_eth_v1_node_peer_count(content_type: str = Header(default=Conte
 
     r = await api.node.peer_count()
 
-    return JSONResponse(r)
+    return r
 
 
 @eth_router.get("/v2/debug/beacon/states/{state_id}", tags=["Debug"], response_model=GetStateV2Response)
