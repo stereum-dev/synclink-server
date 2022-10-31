@@ -53,8 +53,9 @@ async def handle_eth_v1_beacon_blocks_root(state_id, content_type: str = Header(
 
 
 @eth_router.get("/v2/beacon/blocks/{block_id}", tags=["Beacon"], response_model=GetBlockV2Response)
-async def handle_eth_v2_beacon_block(block_id, content_type: str = Header(default=ContentTypeJSON)):
-    validate_content_type(content_type, [ContentTypeJSON, ContentTypeSSZ])
+async def handle_eth_v2_beacon_block(block_id, accept: str = Header(default=ContentTypeJSON)):
+    if (accept == ContentTypeSSZ):
+        return StreamingResponse(api.beacon.block_ssz(block_id=block_id), headers={"Content-Type": "application/json"})
 
     r = await api.beacon.block(block_id)
 
