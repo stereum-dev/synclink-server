@@ -1,5 +1,3 @@
-from xmlrpc.client import Boolean
-
 from services.eth2api import ETH2API
 
 from core.config import Config, DepositContract
@@ -22,13 +20,15 @@ class Node():
     async def is_syncing(self) -> bool:
         r = await self.api.node.syncing()
 
-        return Boolean(r.data.is_syncing)
+        print(r)
+
+        return bool(r.data.is_syncing)
 
     async def is_ready(self) -> bool:
         working = await self.is_working()
         syncing = await self.is_syncing()
 
-        return Boolean(working and not syncing)
+        return bool(working and not syncing)
 
     async def get_spec(self) -> bool:
         spec = await self.api.config.spec()
