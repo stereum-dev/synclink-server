@@ -1,6 +1,8 @@
-from config.config import read
+import asyncio
+
 from loguru import logger
 
+from config.config import read
 from core.node import Node
 
 
@@ -9,10 +11,24 @@ class SynclinkServer():
         self.node = Node(eth_api_address)
 
     async def start(self):
-        await self.node.is_ready()
+        logger.info('Checking sync and health status of the node...')
+
+        is_ready = await self.node.is_ready()
+        while not is_ready:
+            logger.warning('Not is not ready yet...')
+            is_ready = await self.node.is_ready()
+            await asyncio.sleep(5)
+
         logger.success('Node health is ok and not syncing.')
 
-        await self.node.get_spec()
+        logger.info('Checking spec of the node...')
+
+        spec = await self.node.get_spec()
+        while not spec:
+            logger.warning('Not is not ready yet...')
+            spec = await self.node.get_spec()
+            await asyncio.sleep(5)
+
         logger.success('Spec fetched successfully.')
 
 
