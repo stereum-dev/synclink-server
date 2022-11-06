@@ -2,7 +2,7 @@ import asyncio
 
 from loguru import logger
 
-from config.config import read
+from config.config import config
 from core.node import Node
 
 
@@ -32,4 +32,4 @@ class SynclinkServer():
         logger.success('Spec fetched successfully.')
 
 
-server = SynclinkServer(read('config.yaml').eth_api_address)
+server = SynclinkServer(config.eth_api_address)

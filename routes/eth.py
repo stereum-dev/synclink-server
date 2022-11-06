@@ -1,4 +1,4 @@
-from config.config import read
+from config.config import config
 from fastapi import APIRouter, Header, Response
 from fastapi.responses import JSONResponse, StreamingResponse
 from models.get_block_root_response import GetBlockRootResponse
@@ -18,7 +18,6 @@ from services.eth2api import ETH2API
 from validators.content_type import (ContentTypeJSON, ContentTypeSSZ,
                                      validate_content_type)
 
-config = read(file_name='config.yaml')
 api = ETH2API(config.eth_api_address)
 
 
