@@ -1,64 +1,95 @@
 """
 Initialization and validation of the hierarchical config files and CLI arguments.
 """
+from typing import Dict
 from os.path import exists as file_exists
-from .omegaconf import OmegaConfArgparse as OmegaConf
-from .definition import Config, cli_args
+from .omegaconf import OmegaConfArgparse as OmegaConf, DictConfig
+from .definition import Schema, cli_args
 
-#
-# DEV SETTINGS
-#
+class Config():
 
-# Use strict configuration?
-# True = Abort if specified config files does not exist or invalid/unknon arguments are present
-# False = Ignore none existing config files and unknown or invalid arguments and continue with default values instead
-strict = True
+    _schema: object
+    _cli_args: Dict
+    _strict: bool = True
+    _config: DictConfig
+    _user_config_filepath: str
+    _initialized: bool = False
 
-#
-# INIT
-#
+    @classmethod
+    def init(
+        cls,
+        schema: object,
+        cli_args: Dict = {},
+        strict: bool = True
+    ) -> DictConfig:
+        cls._initialized = True
+        cls._schema = schema
+        cls._cli_args = cli_args
+        cls._strict = strict
+        cls._setup_schema()
+        cls._setup_user_config();
+        #cls._setup_cli_config_omega();
+        cls._setup_cli_config_argparse();
+        cls._validate_and_resove();
+        return cls._config
 
-# Setup config schema with defaults
-config = OmegaConf.structured(Config)
-user_config_filepath = config['config']
+    @classmethod
+    def _is_private(cls):
+        if not cls._initialized: raise RuntimeError("invalid call on private method")
 
-# Setup user config (only if the file exists -> was created by the user)
-if file_exists(user_config_filepath):
-    try:
-        config = OmegaConf.merge(config, OmegaConf.load(user_config_filepath))
-        if config['config'] != user_config_filepath and (strict or file_exists(config['config'])):
-            config = OmegaConf.merge(config, OmegaConf.load(config['config']))
-            user_config_filepath = config['config']
-    except Exception as e:
-        if strict:
-            raise Exception(e)
-        pass
+    @classmethod
+    def _setup_schema(cls,lala="",lolo=""):
+        cls._is_private()
+        cls._config = OmegaConf.structured(cls._schema)
+        cls._user_config_filepath = cls._config['config']
 
-# Setup CLI config (the original omegaconf way - does not support dashed cli args)
-# try:
-#     config = OmegaConf.merge(config, OmegaConf.from_cli())
-#     if config['config'] != user_config_filepath and (strict or file_exists(config['config'])):
-#         config = OmegaConf.merge(config, OmegaConf.load(config['config']))
-#         # config file was specified on CLI however at the end further CLI arguments must win
-#         config = OmegaConf.merge(config, OmegaConf.from_cli())v[
-# except Exception as e:
-#     if strict:
-#         raise Exception(e)
-#     pass
+    @classmethod
+    def _setup_user_config(cls):
+        cls._is_private()
+        if file_exists(cls._user_config_filepath):
+            try:
+                cls._config = OmegaConf.merge(cls._config, OmegaConf.load(cls._user_config_filepath))
+                if cls._config['config'] != cls._user_config_filepath and (cls._strict or file_exists(cls._config['config'])):
+                    cls._config = OmegaConf.merge(cls._config, OmegaConf.load(cls._config['config']))
+                    cls._user_config_filepath = cls._config['config']
+            except Exception as e:
+                if cls._strict:
+                    raise Exception(e)
+                pass
 
-# Setup CLI config via argparse (supports dashed CLI args, help and similar useful stuff)
-try:
-    from_cli = OmegaConf.from_argparse(cli_args)
-    config = OmegaConf.merge(config, from_cli)
-    if config['config'] != user_config_filepath and (strict or file_exists(config['config'])):
-        config = OmegaConf.merge(config, OmegaConf.load(config['config']))
-        # config file was specified on CLI however at the end further CLI arguments must win
-        config = OmegaConf.merge(config, from_cli)
-except Exception as e:
-    if strict:
-        raise Exception(e)
-    pass
+    @classmethod
+    def _setup_cli_config_omega(cls):
+        cls._is_private()
+        if file_exists(cls._user_config_filepath):
+            try:
+                cls._config = OmegaConf.merge(cls._config, OmegaConf.load(cls._user_config_filepath))
+                if cls._config['config'] != cls._user_config_filepath and (cls._strict or file_exists(cls._config['config'])):
+                    cls._config = OmegaConf.merge(cls._config, OmegaConf.load(cls._config['config']))
+                    cls._user_config_filepath = cls._config['config']
+            except Exception as e:
+                if cls._strict:
+                    raise Exception(e)
+                pass
 
-# Validate and resolve (but dont convert and keep as DictConfig)
-OmegaConf.to_object(config)
-OmegaConf.resolve(config)
+    @classmethod
+    def _setup_cli_config_argparse(cls):
+        cls._is_private()
+        try:
+            from_cli = OmegaConf.from_argparse(cls._cli_args)
+            cls._config = OmegaConf.merge(cls._config, from_cli)
+            if cls._config['config'] != cls._user_config_filepath and (cls._strict or file_exists(cls._config['config'])):
+                cls._config = OmegaConf.merge(cls._config, OmegaConf.load(cls._config['config']))
+                cls._config = OmegaConf.merge(cls._config, from_cli)
+        except Exception as e:
+            if cls._strict:
+                raise Exception(e)
+            pass
+
+    @classmethod
+    def _validate_and_resove(cls):
+        cls._is_private()
+        OmegaConf.to_object(cls._config)
+        OmegaConf.resolve(cls._config)
+        cls._initialized = False
+
+config = Config.init(Schema,cli_args)

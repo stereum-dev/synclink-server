@@ -1,20 +1,12 @@
 """
 Schema definition of the hierarchical config files and CLI arguments.
 """
-from typing import Dict, List, Optional
 from pydantic import validator
-from pydantic.dataclasses import dataclass # pydantic has more validation features than default dataclasses
-from dataclasses import field
-from omegaconf import MISSING, DictConfig
+from pydantic.dataclasses import dataclass
 from .validate import validate
 
-#
-# OMEGACONF STRUCTURED CONFIG
-#
-
-# Main (Summary)
 @dataclass
-class Config:
+class Schema:
     addr: str = "0.0.0.0"
     @validator("addr")
     def check_addr(cls, addr: str) -> str:
@@ -29,19 +21,12 @@ class Config:
         return validate.eth_api_address(cls,eth_api_address)
     config: str = "config.yaml"
 
-#
-# ARGPARSE COMMANDLINE ARGUMENTS
-#
-
-# Command Line Arguments (associated to omegaconf structured config)
-# Important: this dict MUST follow the omegaconf definition above.
 cli_args = {
     'addr': {
         'args': ["-a", "--addr"],
         'type': str,
         'dest' : 'addr',
         'default' : '0.0.0.0',
-        #'required' : True, # just as example
         'help' : 'the ip address or domain of your synclink server',
     },
     'port': {

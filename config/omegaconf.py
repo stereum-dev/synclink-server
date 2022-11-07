@@ -102,13 +102,11 @@ class OmegaConfArgparse(OmegaConf):
         formated_args = cls._format_cli_args(deepcopy(args_setup))
         for i in cls._flatten_cli_args(formated_args):
             for k, v in i.items():
-                # prevent default values (set empty, don't use "del"!)
                 if "default" in v["xkwargs"]:
                     v['xkwargs']["default"] = ''
                     if v['xkwargs']["type"] == int:
                         v['xkwargs']["default"] = "0"
                 parser.add_argument(*v["xargs"],**v["xkwargs"])
         parsed_args = vars(parser.parse_args())
-         # clear keys of default values that was reset to empty (''/0) above
         parsed_args = {k: v for k, v in parsed_args.items() if v}
-        return OmegaConf.create(cls._adjust_cli_args(formated_args,parsed_args)) # return as DictConfig
+        return OmegaConf.create(cls._adjust_cli_args(formated_args,parsed_args))

@@ -56,7 +56,7 @@ pip install -r requirements.txt
 | eth_api_address | The url to your beacon node API                  | http://localhost:5051 | Yes      |
 
 Optional you can also specify the path to your config file or add/overwrite this arguments on the command line.
-Run python main.my -h for details.
+Run `python main.py -h` for details.
 ## Run the App
 
 Activate the virtual environment and run the app.
