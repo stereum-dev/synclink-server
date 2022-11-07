@@ -14,7 +14,7 @@ A very basic implementation of the [SyncLink Server](https://github.com/stereum-
 
 ## Install Python 3
 
-Please refer to the [official Python docs](https://www.python.org/doc/) to install Python >= 3.6 on your OS.
+Please refer to the [official Python docs](https://www.python.org/doc/) to install Python >= 3.10 on your OS.
 
 ## Install additional Requirements on Windows
 
@@ -55,6 +55,8 @@ pip install -r requirements.txt
 | port            | The port for the SyncLink server                 | 8000                  | No       |
 | eth_api_address | The url to your beacon node API                  | http://localhost:5051 | Yes      |
 
+Optional you can also specify the path to your config file or add/overwrite this arguments on the command line.
+Run python main.my -h for details.
 ## Run the App
 
 Activate the virtual environment and run the app.
