@@ -31,5 +31,11 @@ class SynclinkServer():
 
         logger.success('Spec fetched successfully.')
 
+        docs_addr = config.addr if config.addr != "0.0.0.0" else "127.0.0.1"
+        docs_port = config.port
+
+        logger.success(
+            f"Synclink Server starting, find API docs at http://{docs_addr}:{docs_port}/docs")
+
 
 server = SynclinkServer(config.eth_api_address)

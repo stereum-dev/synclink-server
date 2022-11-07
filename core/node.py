@@ -20,8 +20,6 @@ class Node():
     async def is_syncing(self) -> bool:
         r = await self.api.node.syncing()
 
-        print(r)
-
         return bool(r.data.is_syncing)
 
     async def is_ready(self) -> bool:
