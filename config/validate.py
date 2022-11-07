@@ -1,6 +1,6 @@
 """
 Validator class for specific config types.
-FIXME: for whetever reason validators fail on Mac with errors like:
+FIXME: for whetever reason validators fail on macOS with errors like:
 AttributeError: module 'validators' has no attribute 'ip_address'
 """
 import validators
