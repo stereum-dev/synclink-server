@@ -15,7 +15,7 @@ class SynclinkServer():
 
         is_ready = await self.node.is_ready()
         while not is_ready:
-            logger.warning('Not is not ready yet...')
+            logger.warning('Node is not ready yet...')
             is_ready = await self.node.is_ready()
             await asyncio.sleep(5)
 
@@ -25,7 +25,7 @@ class SynclinkServer():
 
         spec = await self.node.get_spec()
         while not spec:
-            logger.warning('Not is not ready yet...')
+            logger.warning('Node is not ready yet...')
             spec = await self.node.get_spec()
             await asyncio.sleep(5)
 
