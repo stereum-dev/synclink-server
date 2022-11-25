@@ -44,7 +44,7 @@ cli_args = {
         'help' : 'the http address of your eth api node',
     },
     'config': {
-        'args': ["-c", "--config", "--ccc"],
+        'args': ["-c", "--config"],
         'type': str,
         'dest' : 'config',
         'default' : "config.yaml",
