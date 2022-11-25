@@ -106,6 +106,8 @@ class OmegaConfArgparse(OmegaConf):
                     v['xkwargs']["default"] = ''
                     if v['xkwargs']["type"] == int:
                         v['xkwargs']["default"] = "0"
+                    if "action" in v['xkwargs'] and v['xkwargs']["action"].lower().strip() == "append":
+                        v['xkwargs']["default"] = []
                 parser.add_argument(*v["xargs"],**v["xkwargs"])
         parsed_args = vars(parser.parse_args())
         parsed_args = {k: v for k, v in parsed_args.items() if v}
