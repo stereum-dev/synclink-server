@@ -5,6 +5,9 @@ from typing import Dict
 from os.path import exists as file_exists
 from .omegaconf import OmegaConfArgparse as OmegaConf, DictConfig
 from .definition import Schema, cli_args
+from os import environ
+from sys import argv
+import re
 
 class Config():
 
@@ -26,6 +29,7 @@ class Config():
         cls._schema = schema
         cls._cli_args = cli_args
         cls._strict = strict
+        cls._add_environment_variables()
         cls._setup_schema()
         cls._setup_user_config();
         #cls._setup_cli_config_omega();
@@ -36,6 +40,22 @@ class Config():
     @classmethod
     def _is_private(cls):
         if not cls._initialized: raise RuntimeError("invalid call on private method")
+
+    @classmethod
+    def _add_environment_variables(cls):
+        cls._is_private()
+        for k, v in environ.items():
+            k =  k.upper()
+            #if not k.startswith("SYLI_") or k == "SYLI_CONFIG": # all "SYLI_*" except config file
+            if not k.startswith("SYLI_"): # all "SYLI_*"
+                continue
+            # support lists as environment variables, e.g.: SYLI_NODE_1, SYLI_NODE_2 -> --node val1 --node val2
+            m = re.search(r'(.*)(_\d+)$', k)
+            if m is not None:
+                k=m.group(1)
+            argv.append(f"--{k[5:].lower()}")
+            if v != "":
+                argv.append(v)
 
     @classmethod
     def _setup_schema(cls,lala="",lolo=""):
