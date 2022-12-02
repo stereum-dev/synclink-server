@@ -25,5 +25,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: stereum-dev/synclink-server:latest,stereum-dev/synclink-server:${{github.ref_name}}
+          tags: stereum/synclink-server:latest,stereum/synclink-server:${{github.ref_name}}
         if: startsWith(github.ref, 'refs/tags/v')
