@@ -76,7 +76,7 @@ The SyncLink Server [options](#options) must be configured either thru a yaml [c
 | Name            | Default               | Required | Description                                                                         |
 | --------------- | --------------------- | -------- | ----------------------------------------------------------------------------------- |
 | addr            | 0.0.0.0               | No       | The IP address or domain where the SyncLink Server is listening for new connections |
-| port            | 8000                  | No       | The port where the SyncLink Serveris listening for new connections                  |
+| port            | 8000                  | No       | The port where the SyncLink Server is listening for new connections                 |
 | eth_api_address | http://localhost:5051 | No       | The URL to your Beacon node API (usually running on the same host)                  |
 | config          | config.yaml           | No       | Path to a yaml config file                                                          |
 
@@ -214,7 +214,7 @@ If you're interested in improving the SyncLink Server please follow this steps:
 2. Create your feature branch:
     - `git checkout -b feat/new-feature`
 3. Commit your changes:
-    - `git commit -m 'feat(optional): new feature`
+    - `git commit -m "feat(optional): new feature"`
 4. Push the branch:
     -`git push origin feat/new-feature`
 5. Open a pull request
