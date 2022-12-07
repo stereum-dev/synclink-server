@@ -1,11 +1,20 @@
-import tempfile
-from apiclient_pydantic import serialize_all_methods
-import httpx
 from urllib.parse import urljoin
-from models.get_fork_schedule_response import GetForkScheduleResponse
 
+import httpx
+from apiclient_pydantic import serialize_all_methods
+
+from models.get_block_response import GetBlockResponse
+from models.get_block_root_response import GetBlockRootResponse
+from models.get_deposit_contract_response import GetDepositContractResponse
+from models.get_fork_schedule_response import GetForkScheduleResponse
+from models.get_genesis_response import GetGenesisResponse
+from models.get_peer_count_response import GetPeerCountResponse
+from models.get_peers_response import GetPeersResponse
 from models.get_spec_response import GetSpecResponse
+from models.get_state_finality_checkpoints_response import \
+    GetStateFinalityCheckpointsResponse
 from models.get_syncing_status_response import GetSyncingStatusResponse
+from models.get_version_response import GetVersionResponse
 
 
 class API:
@@ -19,17 +28,18 @@ class API:
         return response.json()
 
 
+@serialize_all_methods()
 class BeaconAPI(API):
-    async def genesis(self):
+    async def genesis(self) -> GetGenesisResponse:
         return await self.request('/eth/v1/beacon/genesis')
 
-    async def block_root(self, block_id):
+    async def block_root(self, block_id) -> GetBlockRootResponse:
         return await self.request(f"/eth/v1/beacon/blocks/{block_id}/root")
 
-    async def state_finality_checkpoints(self, state_id):
+    async def state_finality_checkpoints(self, state_id) -> GetStateFinalityCheckpointsResponse:
         return await self.request(f"/eth/v1/beacon/states/{state_id}/finality_checkpoints")
 
-    async def block(self, block_id):
+    async def block(self, block_id) -> GetBlockResponse:
         return await self.request(f"/eth/v2/beacon/blocks/{block_id}")
 
     def block_ssz(self, block_id):
@@ -43,7 +53,7 @@ class ConfigAPI(API):
     async def spec(self) -> GetSpecResponse:
         return await self.request('/eth/v1/config/spec')
 
-    async def deposit_contract(self):
+    async def deposit_contract(self) -> GetDepositContractResponse:
         return await self.request('/eth/v1/config/deposit_contract')
 
     async def fork_schedule(self) -> GetForkScheduleResponse:
@@ -58,13 +68,13 @@ class NodeAPI(API):
     async def syncing(self) -> GetSyncingStatusResponse:
         return await self.request('/eth/v1/node/syncing')
 
-    async def version(self):
+    async def version(self) -> GetVersionResponse:
         return await self.request('/eth/v1/node/version')
 
-    async def peers(self):
+    async def peers(self) -> GetPeersResponse:
         return await self.request('/eth/v1/node/peers')
 
-    async def peer_count(self):
+    async def peer_count(self) -> GetPeerCountResponse:
         return await self.request('/eth/v1/node/peer_count')
 
 
