@@ -3,8 +3,8 @@ from urllib.parse import urljoin
 import httpx
 from apiclient_pydantic import serialize_all_methods
 
-from models.get_block_response import GetBlockResponse
 from models.get_block_root_response import GetBlockRootResponse
+from models.get_block_v2_response import GetBlockV2Response
 from models.get_deposit_contract_response import GetDepositContractResponse
 from models.get_fork_schedule_response import GetForkScheduleResponse
 from models.get_genesis_response import GetGenesisResponse
@@ -39,7 +39,7 @@ class BeaconAPI(API):
     async def state_finality_checkpoints(self, state_id) -> GetStateFinalityCheckpointsResponse:
         return await self.request(f"/eth/v1/beacon/states/{state_id}/finality_checkpoints")
 
-    async def block(self, block_id) -> GetBlockResponse:
+    async def block(self, block_id) -> GetBlockV2Response:
         return await self.request(f"/eth/v2/beacon/blocks/{block_id}")
 
     def block_ssz(self, block_id):
