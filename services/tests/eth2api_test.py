@@ -4,10 +4,11 @@ import pytest
 
 from services.eth2api import ETH2API
 
-api = ETH2API('http://135.181.33.84:5051')
+api = ETH2API(pytest.api_url)
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_beacon_genesis():
     genesis = await api.beacon.genesis()
 
@@ -15,6 +16,7 @@ async def test_beacon_genesis():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_beacon_block_root():
     block_root = await api.beacon.block_root(block_id=0)
 
@@ -22,6 +24,7 @@ async def test_beacon_block_root():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_beacon_state_finality_checkpoints():
     finality = await api.beacon.state_finality_checkpoints(state_id='head')
 
@@ -29,6 +32,7 @@ async def test_beacon_state_finality_checkpoints():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_beacon_block():
     block_id = '0'
 
@@ -38,6 +42,7 @@ async def test_beacon_block():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_config_spec():
     spec = await api.config.spec()
 
@@ -45,6 +50,7 @@ async def test_config_spec():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_config_deposit_contract():
     deposit_contract = await api.config.deposit_contract()
 
@@ -52,6 +58,7 @@ async def test_config_deposit_contract():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_config_fork_schedule():
     fork_schedule = await api.config.fork_schedule()
 
@@ -59,6 +66,7 @@ async def test_config_fork_schedule():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_node_health():
     health = await api.node.health()
 
@@ -66,6 +74,7 @@ async def test_node_health():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_node_syncing():
     syncing = await api.node.syncing()
 
@@ -73,6 +82,7 @@ async def test_node_syncing():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_node_version():
     version = await api.node.version()
 
@@ -80,6 +90,7 @@ async def test_node_version():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_node_peers():
     peers = await api.node.peers()
 
@@ -87,6 +98,7 @@ async def test_node_peers():
 
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(pytest.api_unavailable, reason="API unavailable")
 async def test_node_peer_count():
     peer_count = await api.node.peer_count()
 
