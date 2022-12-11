@@ -10,6 +10,8 @@ Dockerfile
 **/__pycache__
 **/*.pyc
 **/*.md
+**/*.sh
+**/*.ini
 **/*.yml
 **/*.yaml
 **/*.example

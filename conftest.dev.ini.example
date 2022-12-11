@@ -1,0 +1,4 @@
+# pytest configuration example for "conftest" (file: conftest.dev.ini)
+# note that the "[conftest]" section is static and required!
+[conftest]
+api_url = http://localhost:5051
