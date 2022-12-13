@@ -39,7 +39,8 @@ You can use the SyncLink Server as described in this document however during dev
     + [Run from source](#run-from-source)
       - [Quick start from source on Windows](#quick-start-from-source-on-windows)
       - [Quick start from source on Linux and macOS](#quick-start-from-source-on-linux-and-macos)
-* [Contributing](#contributing)
++ [Contributing](#contributing)
+  * [Unit Testing and Linting](#unit-testing-and-linting)
 * [Contact](#contact)
 - [Docker Examples](#docker-examples)
   * [Production Container Examples](#production-container-examples)
@@ -220,6 +221,14 @@ If you're interested in improving the SyncLink Server please follow this steps:
 5. Open a pull request
 
 > Note: To test your changes in a local Docker container see the [Development Container Examples](#development-container-examples).
+
+### Unit Testing and Linting
+
+All pull requests running thru automated tests. It is recommended to run this tests locally before you open a pull request.
+
+- Setup your local development environment, thus you're able to [run from source](#run-from-source)
+- Execute `pytest` to run Unit Tests (where no errors as result means passed)
+- Execute `flake8` to run Lint Tests (where 0 as result means passed)
 
 # Contact
 
