@@ -7,7 +7,7 @@
 [![IE](https://img.shields.io/badge/Website-0076D6?style=for-the-badge&logo=Internet%20Explorer&logoColor=white)](https://synclink.io/) [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/8Znj8K6GjN)
 [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/stereumdev)
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/channel/UCq_LYa0idkQcSnxBUmiJm3Q)
-[![Gmail](https://img.shields.io/badge/EMail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:stereum@stereum.net) 
+[![Gmail](https://img.shields.io/badge/EMail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:synclink@synclink.io) 
 
 [![Build Status](https://img.shields.io/github/workflow/status/stereum-dev/synclink-server/docker?color=blue)](https://github.com/stereum-dev/synclink-server/actions/workflows/docker.yaml)
 [![Latest Release](https://img.shields.io/github/release/stereum-dev/synclink-server?color=blue)](https://github.com/stereum-dev/synclink-server/releases/latest)
@@ -234,7 +234,7 @@ All pull requests running thru automated tests. It is recommended to run this te
 
 [![Discord](https://img.shields.io/discord/769190437050122311?color=blue&label=discord)](https://discord.gg/8Znj8K6GjN)
 
-To get in touch just [join the Stereum Discord server](https://discord.gg/8Znj8K6GjN) and leave a message in one of the public channels or drop us an email to [stereum@stereum.net](mailto:stereum@stereum.net). We are happy to get your feedback!
+To get in touch just [join the Stereum Discord server](https://discord.gg/8Znj8K6GjN) and leave a message in one of the public channels or drop us an email to [synclink@synclink.io](mailto:synclink@synclink.io). We are happy to get your feedback!
 
 # Docker Examples
 
