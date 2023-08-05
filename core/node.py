@@ -10,8 +10,10 @@ class Node():
 
     async def is_working(self) -> bool:
         try:
-            r = await self.api.node.health()
-            r.raise_for_status()
+            r = await self.api.node.version()
+            if not r.data.version.lower().startswith("checkpointz/"):
+                r = await self.api.node.health()
+                r.raise_for_status()
 
             return True
         except:
