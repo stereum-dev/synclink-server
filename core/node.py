@@ -1,3 +1,4 @@
+import httpx
 from services.eth2api import ETH2API
 
 from core.config import Config, DepositContract
@@ -5,15 +6,24 @@ from core.config import Config, DepositContract
 
 class Node():
     def __init__(self, url) -> None:
+        self.client = httpx.AsyncClient(base_url=url)
         self.api = ETH2API(url)
         self.config = Config()
+
+    async def is_cheackpointz_healthy(self) -> bool:
+        return await self.client.get(url="/eth/v2/debug/beacon/states/finalized", timeout=2, headers={
+            'Content-Type': 'application/json',
+            'Accept': 'application/octet-stream'
+        })
 
     async def is_working(self) -> bool:
         try:
             r = await self.api.node.version()
-            if not r.data.version.lower().startswith("checkpointz/"):
+            if r.data.version.lower().startswith("checkpointz/"):
+                r = await self.is_cheackpointz_healthy()
+            else:
                 r = await self.api.node.health()
-                r.raise_for_status()
+            r.raise_for_status()
 
             return True
         except:
