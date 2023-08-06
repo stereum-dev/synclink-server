@@ -60,13 +60,14 @@ You can use the SyncLink Server as described in this document however during dev
 
 # Supported clients
 
-| Client     | Support |
-| ---------- | ------- |
-| Lighthouse | ✅      |
-| Lodestar   | ✅      |
-| Nimbus     | ✅      |
-| Prysm      | ✅      |
-| Teku       | ✅      |
+| Client      | Support |
+| ----------- | ------- |
+| Checkpointz | ✅      |
+| Lighthouse  | ✅      |
+| Lodestar    | ✅      |
+| Nimbus      | ✅      |
+| Prysm       | ✅      |
+| Teku        | ✅      |
 
 # Usage
 
