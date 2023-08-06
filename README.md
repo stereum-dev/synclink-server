@@ -62,11 +62,11 @@ You can use the SyncLink Server as described in this document however during dev
 
 | Client     | Support |
 | ---------- | ------- |
-| Teku       | ✅      |
-| Nimbus     | ✅      |
-| Lodestar   | ✅      |
 | Lighthouse | ✅      |
+| Lodestar   | ✅      |
+| Nimbus     | ✅      |
 | Prysm      | ✅      |
+| Teku       | ✅      |
 
 # Usage
 
