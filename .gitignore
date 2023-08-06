@@ -166,3 +166,6 @@ docker-compose.dev.yaml
 # Note: at some point we may provide active test nodes in conftest.ini
 #conftest.ini
 conftest.dev.ini
+
+# OS
+.DS_Store
