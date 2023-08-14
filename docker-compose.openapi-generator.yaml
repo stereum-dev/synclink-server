@@ -4,4 +4,4 @@ services:
     volumes:
       - "${PWD}:/src"
     image: openapitools/openapi-generator-cli
-    command: "generate  -i https://github.com/ethereum/beacon-APIs/releases/download/v2.3.0/beacon-node-oapi.json -g python-fastapi --skip-validate-spec  -o /src/auto"
+    command: "generate  -i https://github.com/ethereum/beacon-APIs/releases/download/v2.4.2/beacon-node-oapi.json -g python-fastapi --skip-validate-spec  -o /src/auto"
